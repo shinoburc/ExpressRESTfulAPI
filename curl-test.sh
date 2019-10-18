@@ -11,7 +11,7 @@ curl http://$HOST/api/foods -X POST -d '{"name": "hoge", "price": 120}' -H "Cont
 echo "\n"
 
 echo "PUT foods/0"
-curl http://$HOST/api/foods/0 -X PUT -d '{"id": 3, "name": "hoge", "price": 120}' -H "Content-Type: application/json"
+curl http://$HOST/api/foods/0 -X PUT -d '{"name": "hoge", "price": 120}' -H "Content-Type: application/json"
 echo "\n"
 
 echo "DELETE foods/0"
