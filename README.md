@@ -15,3 +15,7 @@ $ npm start
 ```
 
 Access [http://localhost:3000/api/foods](http://localhost:3000/api/foods])
+
+## APIs
+
+read [curl-test.sh](curl-test.sh)
