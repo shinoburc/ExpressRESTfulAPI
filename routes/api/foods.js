@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-// RESTful API
+// CRUD RESTful API
 var foods = [
   {
     id: "0",
