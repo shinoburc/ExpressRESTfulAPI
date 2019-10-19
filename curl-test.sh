@@ -2,12 +2,16 @@
 
 HOST="dandydot.no-ip.biz:3000"
 
-echo "GET foods/0"
-curl http://$HOST/api/foods/0 -X GET
-echo "\n"
-
 echo "POST foods"
 curl http://$HOST/api/foods -X POST -d '{"name": "hoge", "price": 120}' -H "Content-Type: application/json"
+echo "\n"
+
+echo "GET foods"
+curl http://$HOST/api/foods -X GET
+echo "\n"
+
+echo "GET foods/0"
+curl http://$HOST/api/foods/0 -X GET
 echo "\n"
 
 echo "PUT foods/0"
