@@ -1,23 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+
+const mongoose = require('mongoose');
+const Food = require('../../models/food');
+
+mongoose.connect('mongodb://localhost/db');
 
 // CRUD RESTful API
-var foods = [
-  {
-    id: "0",
-    name: "味噌マヨチキン丼",
-    price: "790"
-  },{
-    id: "1",
-    name: "ネギ塩豚カルビ丼",
-    price: "890"
-  },{
-    id: "2",
-    name: "自家製タルタルの炙りチーズサーモン丼",
-    price: "950"
-  }
-]
-
 // Create
 router.post('/', function(req, res) {
   // Request validation
@@ -27,25 +16,49 @@ router.post('/', function(req, res) {
     });
   }
 
-  const food = {
-    name: req.body.name,
-    price: req.body.price
-  }
-  console.log(food);
-  // food.save
-  res.send(req.body)
+  const food = new Food(req.body);
+
+  food.save(function(err){
+    if(!err) {
+      return res.json(food)
+    } else {
+      return res.status(500).send('user create faild.');
+    }
+  });
 });
 
 // Read(find all)
 router.get('/', function(req, res, next) {
-  res.json(foods);
+  //res.json(foods);
+  Food.find()
+    .then(foods => {
+      res.send(foods);
+  }).catch(err => {
+    res.status(500).send({
+      message: err.message || "Something wrong while retrieving foods."
+    });
+  });
 });
 // Read(find by id)
 router.get('/:id', function(req, res, next) {
-  var id = req.params.id;
-  const food = foods[id];
-
-  res.json(food);
+  Food.findById(req.params.id)
+  .then(food => {
+    if(!food) {
+      return res.status(404).send({
+        message: "Food not found with id " + req.params.id
+      });            
+    }
+    res.json(food);
+  }).catch(err => {
+    if(err.kind === 'ObjectId') {
+      return res.status(404).send({
+        message: "Food not found with id " + req.params.id
+      });                
+    }
+    return res.status(500).send({
+      message: "Something wrong retrieving food with id " + req.params.food
+    });
+  });
 });
 
 // Update
@@ -57,20 +70,49 @@ router.put('/:id', function(req, res) {
     });
   }
 
-  var id = req.params.id;
-  const food = foods[id];
-  // food.update
-
-  res.json(food);
+  Food.findByIdAndUpdate(req.params.id, {
+    name: req.body.name || "No name", 
+    price: req.body.price,
+  }, {new: true})
+  .then(food=> {
+    if(!food) {
+      return res.status(404).send({
+        message: "Food not found with id " + req.params.id
+      });
+    }
+    res.json(food);
+  }).catch(err => {
+    if(err.kind === 'ObjectId') {
+      return res.status(404).send({
+        message: "Food not found with id " + req.params.id
+      });                
+    }
+    return res.status(500).send({
+      message: "Something wrong updating food with id " + req.params.id
+    });
+  });
 });
 
 // DELETE
 router.delete('/:id', function(req, res) {
-  var id = req.params.id;
-  const food = foods[id];
-  // food.delete
-
-  res.json(food);
+  Food.findByIdAndRemove(req.params.id)
+  .then(food => {
+    if(!food ) {
+      return res.status(404).send({
+        message: "Food not found with id " + req.params.id
+      });
+    }
+    res.json(food);
+  }).catch(err => {
+    if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+      return res.status(404).send({
+        message: "Food not found with id " + req.params.id
+      });                
+    }
+    return res.status(500).send({
+      message: "Could not delete food with id " + req.params.id
+    });
+  });
 });
 
 module.exports = router;
