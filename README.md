@@ -1,7 +1,7 @@
 Express RESTful API
 ===================
 
-## Depend On
+## Dependency
 
 - MongoDB
 
