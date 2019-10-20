@@ -4,7 +4,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Food = require('../../models/food');
 
-mongoose.connect('mongodb://mongo/db');
+mongoose.connect('mongodb://mongo/db', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // CRUD RESTful API
 // Create
