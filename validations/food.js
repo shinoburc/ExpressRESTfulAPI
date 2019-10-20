@@ -7,7 +7,7 @@ exports.create = [
 exports.findAll = [];
 exports.findOne = [];
 exports.update = [
-      check('name').isString(),
-      check('price').isNumeric()
+    check('name').isString(),
+    check('price').isNumeric()
   ];
 exports.delete = [];
