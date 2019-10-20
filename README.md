@@ -18,4 +18,4 @@ Access [http://localhost:3000/api/foods](http://localhost:3000/api/foods])
 
 ## APIs
 
-read [curl-test.sh](curl-test.sh)
+read [test/curl-test.sh](test/curl-test.sh)
