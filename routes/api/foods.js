@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const food = require('../../controllers/food');
+const controller = require('../../controllers/food');
 
 // CRUD RESTful API
-router.post('/', food.create);
-router.get('/',  food.findAll);
-router.get('/:id', food.findOne);
-router.put('/:id', food.update);
-router.delete('/:id', food.delete);
+router.post('/', controller.create);
+router.get('/',  controller.findAll);
+router.get('/:id', controller.findOne);
+router.put('/:id', controller.update);
+router.delete('/:id', controller.delete);
 
 module.exports = router;
