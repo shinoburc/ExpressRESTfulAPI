@@ -25,7 +25,6 @@ exports.create = [[
 
 // Read(find all)
 exports.findAll = (req, res) => {
-  //res.json(foods);
   Food.find()
     .then(foods => {
       res.json(foods);
