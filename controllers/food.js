@@ -1,8 +1,6 @@
 const Food = require('../models/food');
 const { check, validationResult } = require('express-validator');
 
-// CRUD RESTful API
-// Create
 exports.create = [[
     check('name').isString(),
     check('price').isNumeric()
@@ -23,7 +21,6 @@ exports.create = [[
   });
 }];
 
-// Read(find all)
 exports.findAll = (req, res) => {
   Food.find()
     .then(foods => {
@@ -34,7 +31,7 @@ exports.findAll = (req, res) => {
     });
   });
 };
-// Read(find by id)
+
 exports.findOne = (req, res) => {
   Food.findById(req.params.id)
   .then(food => {
@@ -56,7 +53,6 @@ exports.findOne = (req, res) => {
   });
 };
 
-// Update
 exports.update = [[
       check('name').isString(),
       check('price').isNumeric()
@@ -90,7 +86,6 @@ exports.update = [[
   });
 }];
 
-// DELETE
 exports.delete = (req, res) => {
   Food.findByIdAndRemove(req.params.id)
   .then(food => {

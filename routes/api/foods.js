@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const food = require('../../controllers/food');
 
+// CRUD RESTful API
 router.post('/', food.create);
 router.get('/', food.findAll);
 router.get('/:id', food.findOne);
