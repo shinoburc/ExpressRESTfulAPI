@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { check, validationResult } = require('express-validator');
 
 const Food = mongoose.Schema({
     name: String,
@@ -7,4 +8,18 @@ const Food = mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Food', Food);
+const model = mongoose.model('Food', Food);
+
+model.createValidation = [
+      check('name').isString(),
+      check('price').isNumeric()
+    ];
+model.findAllValidation = [];
+model.findOneValidation = [];
+model.updateValidation = [
+    check('name').isString(),
+    check('price').isNumeric()
+  ];
+model.deleteValidation = [];
+
+module.exports = model;
