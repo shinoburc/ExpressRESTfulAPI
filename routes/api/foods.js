@@ -4,7 +4,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Food = require('../../models/food');
 
-mongoose.connect('mongodb://localhost/db');
+mongoose.connect('mongodb://mongo/db');
 
 // CRUD RESTful API
 // Create
