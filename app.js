@@ -9,6 +9,10 @@ var foodsRouter = require('./routes/api/foods');
 
 var app = express();
 
+// DB connection
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://mongo/db', { useNewUrlParser: true, useUnifiedTopology: true });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
