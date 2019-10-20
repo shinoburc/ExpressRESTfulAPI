@@ -1,10 +1,7 @@
 const Food = require('../models/food');
 const { check, validationResult } = require('express-validator');
 
-exports.create = [[
-    check('name').isString(),
-    check('price').isNumeric()
-  ], (req, res) => {
+exports.create = (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() })
@@ -19,7 +16,7 @@ exports.create = [[
       return res.status(500).json({ message: 'food create faild.' });
     }
   });
-}];
+};
 
 exports.findAll = (req, res) => {
   Food.find()
@@ -53,10 +50,7 @@ exports.findOne = (req, res) => {
   });
 };
 
-exports.update = [[
-      check('name').isString(),
-      check('price').isNumeric()
-  ], (req, res) => {
+exports.update = (req, res) => {
 
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -84,7 +78,7 @@ exports.update = [[
       message: "Something wrong updating food with id " + req.params.id
     });
   });
-}];
+};
 
 exports.delete = (req, res) => {
   Food.findByIdAndRemove(req.params.id)
