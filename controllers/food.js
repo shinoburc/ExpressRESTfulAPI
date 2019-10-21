@@ -1,7 +1,7 @@
 const Food = require('../models/food');
 const { check, validationResult } = require('express-validator');
 
-exports.create = (req, res) => {
+exports.create = [Food.createValidation, (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() })
@@ -16,9 +16,9 @@ exports.create = (req, res) => {
       return res.status(500).json({ message: 'food create faild.' });
     }
   });
-};
+}];
 
-exports.findAll = (req, res) => {
+exports.findAll = [Food.findAllValidation, (req, res) => {
   Food.find()
     .then(foods => {
       res.json(foods);
@@ -27,9 +27,9 @@ exports.findAll = (req, res) => {
       message: err.message || "Something wrong while retrieving foods."
     });
   });
-};
+}];
 
-exports.findOne = (req, res) => {
+exports.findOne = [Food.findOneValidation, (req, res) => {
   Food.findById(req.params.id)
   .then(food => {
     if(!food) {
@@ -48,9 +48,9 @@ exports.findOne = (req, res) => {
       message: "Something wrong retrieving food with id " + req.params.food
     });
   });
-};
+}];
 
-exports.update = (req, res) => {
+exports.update = [Food.updateValidation, (req, res) => {
 
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -78,9 +78,9 @@ exports.update = (req, res) => {
       message: "Something wrong updating food with id " + req.params.id
     });
   });
-};
+}];
 
-exports.delete = (req, res) => {
+exports.delete = [Food.deleteValidation, (req, res) => {
   Food.findByIdAndRemove(req.params.id)
   .then(food => {
     if(!food ) {
@@ -99,4 +99,4 @@ exports.delete = (req, res) => {
       message: "Could not delete food with id " + req.params.id
     });
   });
-};
+}];

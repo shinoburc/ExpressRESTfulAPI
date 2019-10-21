@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const validator = require('../../validations/food');
-const food = require('../../controllers/food');
+const controller = require('../../controllers/food');
 
 // CRUD RESTful API
-router.post('/', validator.create, food.create);
-router.get('/', validator.findAll, food.findAll);
-router.get('/:id', validator.findOne, food.findOne);
-router.put('/:id', validator.update, food.update);
-router.delete('/:id', validator.delete, food.delete);
+router.post('/', controller.create);
+router.get('/',  controller.findAll);
+router.get('/:id', controller.findOne);
+router.put('/:id', controller.update);
+router.delete('/:id', controller.delete);
 
 module.exports = router;
