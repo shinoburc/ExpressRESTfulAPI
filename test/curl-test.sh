@@ -4,7 +4,7 @@
 HOST="localhost:3000"
 
 echo "POST foods"
-food=`curl -s http://$HOST/api/foods -X POST -d '{"name": "味噌マヨチキン丼", "price": 790}' -H "Content-Type: application/json"`
+food=`curl -s http://$HOST/api/foods -X POST -d '{"name": "味噌マヨチキン丼", "price": -10}' -H "Content-Type: application/json"`
 id=`echo $food | jq -r '._id'`
 echo $food
 echo ""
