@@ -22,6 +22,7 @@ var options = {
       title: 'ExpressRESTfulAPI',
       version: '0.0.0.'
     },
+    "schemes": ["http", "https"]
   },
   apis: ['./routes/api/foods.js'],
 };
