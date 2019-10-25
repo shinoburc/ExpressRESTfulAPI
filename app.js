@@ -9,6 +9,30 @@ var foodsRouter = require('./routes/api/foods');
 
 var app = express();
 
+// Swagger 
+var swaggerJSDoc = require('swagger-jsdoc');
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+var options = {
+  swaggerDefinition: {
+    components: {},
+    info: {
+      title: 'ExpressRESTfulAPI',
+      version: '0.0.0.'
+    },
+    "schemes": ["http", "https"]
+  },
+  apis: ['./routes/api/foods.js'],
+};
+var swaggerSpec = swaggerJSDoc(options);
+app.get('/swagger.json', function(req, res){
+  res.setHeader('Content-Type','application/json');
+  res.send(swaggerSpec);
+});
+
 // DB connection
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://mongo/db', { useNewUrlParser: true, useUnifiedTopology: true });
