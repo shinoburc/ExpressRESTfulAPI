@@ -18,6 +18,7 @@ app.use(function(req, res, next) {
 });
 var options = {
   swaggerDefinition: {
+    components: {},
     info: {
       title: 'ExpressRESTfulAPI',
       version: '0.0.0.'
